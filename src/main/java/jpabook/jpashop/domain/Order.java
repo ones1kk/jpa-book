@@ -14,7 +14,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 @Entity
-public class Orders {
+public class Order {
 
     @Id
     @GeneratedValue

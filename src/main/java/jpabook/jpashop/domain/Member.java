@@ -11,7 +11,8 @@ import javax.persistence.OneToMany;
 @Entity
 public class Member {
 
-    @Id @GeneratedValue
+    @Id
+    @GeneratedValue
     @Column(name = "member_no")
     private Long id;
     private String name;

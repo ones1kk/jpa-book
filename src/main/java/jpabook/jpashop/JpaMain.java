@@ -5,6 +5,8 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 import jpabook.jpashop.domain.Book;
+import jpabook.jpashop.domain.Member;
+import org.hibernate.Hibernate;
 
 public class JpaMain {
 
@@ -16,12 +18,20 @@ public class JpaMain {
         tx.begin();
 
         try {
+            Member member1 = new Member();
+            member1.setName("member1");
+            em.persist(member1);
 
-            Book book = new Book();
-            book.setAuthor("aa");
-            book.setIsbn("1212");
+            em.flush();
+            em.clear();
 
-            em.persist(book);
+            Member refMember = em.getReference(Member.class, member1.getId());
+            System.out.println("refMember.getClass() = " + refMember.getClass()); //Proxy
+
+            // refMember.getName();
+            System.out.println("isLoaded = " + emf.getPersistenceUnitUtil().isLoaded(refMember));
+
+            Hibernate.initialize(refMember); // 강제 초기화
 
             tx.commit();
         } catch (Exception e) {
